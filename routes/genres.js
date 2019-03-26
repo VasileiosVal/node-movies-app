@@ -53,10 +53,10 @@ router.patch('/:id', async (req, res) => {
     if (result.error) return res.status(400).send(result.error.details[0].message)
 
     try {
-        const genre = await Genre.findByIdAndUpdate(req.params.id, {
-            name: req.body.name
+        const genre = await Genre.updateOne({
+            _id: req.params.id
         }, {
-            new: true
+            name: req.body.name
         });
         if (!genre) return res.status(404).send('No genre found with the given ID.')
         res.send(genre);

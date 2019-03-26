@@ -22,7 +22,9 @@ const validate = arg => {
         name: Joi.string().min(3).required()
     };
 
-    return Joi.validate(arg, schema);
+    return Joi.validate(arg, schema, {
+        stripUnknown: true
+    });
 }
 
 module.exports = {
