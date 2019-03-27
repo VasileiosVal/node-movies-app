@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const express = require("express");
 const gernes = require("./routes/genres");
 const customers = require('./routes/customers');
+const movies = require('./routes/movies');
 
 mongoose.connect('mongodb://localhost/movieApp', {
         useNewUrlParser: true
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.use("/api/genres", gernes);
 app.use("/api/customers", customers);
+app.use('/api/movies', movies);
 
 
 const port = process.env.PORT || 3000;
