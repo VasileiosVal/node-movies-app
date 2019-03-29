@@ -1,29 +1,34 @@
 const config = require("config");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const express = require("express");
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
 const gernes = require("./routes/genres");
-const customers = require('./routes/customers');
-const movies = require('./routes/movies');
+const customers = require("./routes/customers");
+const movies = require("./routes/movies");
+const rentals = require("./routes/rentals");
+const auth = require("./routes/auth");
 
-mongoose.connect('mongodb://localhost/movieApp', {
-        useNewUrlParser: true
-    })
-    .then(() => console.log('succesfully connected to mongodb'))
-    .catch(err => console.log(err))
+if (!config.get("jwtPrivateKey")) {
+  console.log("FATAL ERROR: jwtPrivateKey not defined");
+  process.exit(1);
+}
 
-
+mongoose
+  .connect("mongodb://localhost/movieApp", {
+    useNewUrlParser: true
+  })
+  .then(() => console.log("succesfully connected to mongodb"))
+  .catch(err => console.log(err));
 
 const app = express();
 app.use(express.json());
 
-// if (process.env.NODE_ENV === "development") {
-//     console.log(config.get("name"));
-// }
-
 app.use("/api/genres", gernes);
 app.use("/api/customers", customers);
-app.use('/api/movies', movies);
-
+app.use("/api/movies", movies);
+app.use("/api/rentals", rentals);
+app.use("/api/auth", auth);
 
 const port = process.env.PORT || 3000;
 app.listen(port);

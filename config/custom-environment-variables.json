@@ -1,1 +1,3 @@
-{}
+{
+    "jwtPrivateKey": "moviesApp_jwtPrivateKey"
+}

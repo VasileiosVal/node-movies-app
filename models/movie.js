@@ -36,7 +36,7 @@ const validate = arg => {
             .required()
             .min(2)
             .max(100),
-        genre: Joi.string().required(),
+        genre: Joi.objectId().required(),
         numberInStock: Joi.number()
             .integer()
             .min(0)

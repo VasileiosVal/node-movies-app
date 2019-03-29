@@ -3,6 +3,8 @@ const {
     Genre,
     validate
 } = require('../models/genre')
+const auth = require('../middleware/auth')
+const admin = require('../middleware/admin');
 
 const router = express.Router();
 
@@ -27,7 +29,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', [auth, admin], async (req, res) => {
     const result = validate(req.body);
     if (result.error) return res.status(400).send(result.error.details[0].message)
 
