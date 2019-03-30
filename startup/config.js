@@ -1,8 +1,9 @@
 const config = require("config");
+const logger = require('./logging');
 
 module.exports = () => {
     if (!config.get("jwtPrivateKey")) {
-        console.log("FATAL ERROR: jwtPrivateKey not defined");
+        logger.error('FATAL ERROR: jwtPrivateKey is not defined')
         process.exit(1);
     }
 }
